@@ -1,0 +1,32 @@
+package project.model;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+/**
+ * Created by Daniel Shchepetov on 02.04.2016.
+ */
+public class ComplaintValidator implements Validator {
+    @Override
+    public boolean supports(Class clas) {
+        return Complaint.class.equals(clas);
+    }
+
+    @Override
+    public void validate(Object obj, Errors e) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(e, "name", "field.required", "Error with name!");
+        ValidationUtils.rejectIfEmptyOrWhitespace(e, "header", "field.required", "Error with header!");
+        ValidationUtils.rejectIfEmptyOrWhitespace(e, "text", "field.required", "Error with text!");
+       Complaint a = (Complaint) obj;
+        try {
+            new URL(a.getImageURI());
+        } catch (MalformedURLException ex) {
+            e.rejectValue("imageURI", "URL.incorrect", "Error with uri!");
+        }
+    }
+
+}
