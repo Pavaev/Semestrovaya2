@@ -1,4 +1,6 @@
 jdbc.driver   = com.mysql.jdbc.Driver
 jdbc.uri      = jdbc:mysql://localhost:3306/board
 db.user       = root
-db.password   = vfdhbr-cj,frf
+db.password   =
+
+
