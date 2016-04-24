@@ -15,4 +15,5 @@ public interface IComplaintService {
     void add(Complaint comp);
 
     Page<Complaint> getPage(Integer pageNum, String from, String to, String comp);
+    Page<Complaint> getPage(Integer pageNum);
 }

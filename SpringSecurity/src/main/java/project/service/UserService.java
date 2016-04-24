@@ -19,17 +19,9 @@ public class UserService implements IUserService {
     @Autowired
     UserRepository userRepo;
 
-    @Autowired
-    TownRepository townRepo;
-
     @Override
     public void add(User user) {
         userRepo.save(user);
-    }
-
-    @Override
-    public ArrayList<Town> getTowns() {
-        return townRepo.findAll();
     }
 
 }

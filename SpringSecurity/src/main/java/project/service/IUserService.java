@@ -10,5 +10,5 @@ import java.util.ArrayList;
  */
 public interface IUserService {
     void add(User user);
-    ArrayList<Town> getTowns();
+
 }

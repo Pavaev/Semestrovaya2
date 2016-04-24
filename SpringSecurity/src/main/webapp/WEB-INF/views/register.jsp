@@ -178,12 +178,12 @@
             </div>
         </div>
         <div class="form-group">
-            <form:label class="control-label col-xs-3" for="postalAddress" path="town">Адрес:</form:label>
+            <form:label class="control-label col-xs-3" name="town" for="postalAddress" path="idTown">Город:</form:label>
             <div class="col-xs-9">
-                <form:select rows="3" class="form-control" id="postalAddress"
-                             path="town">
+                <form:select rows="3" name="idTown" class="form-control" id="postalAddress"
+                             path="idTown">
                     <c:forEach var="town" items="${townList}">
-                        <option>${town.getTown()}</option>
+                        <option>${town.getName()}</option>
                     </c:forEach>
                 </form:select>
             </div>

@@ -4,21 +4,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.model.Town;
 import project.model.User;
+import project.repo.TownRepository;
 import project.service.IUserService;
+import project.service.TownService;
 
 import javax.validation.Valid;
 import java.nio.file.attribute.UserPrincipalLookupService;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
 @Controller
 public class UserController {
+
+    @Autowired
+    TownService townServ;
+
 
 
     @Autowired
@@ -33,7 +42,7 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String reg(ModelMap map) {
-        ArrayList<Town> townList = userServ.getTowns();
+        ArrayList<Town> townList = townServ.getTowns();
 
         map.put("user", new User());
         map.put("townList", townList);
@@ -44,12 +53,10 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(
             RedirectAttributes redirectAttributes,
-            @Valid User user,
-            BindingResult result,
-            ModelMap map
+            @Valid @ModelAttribute("user")User user,
+            BindingResult result
     ) {
-        ArrayList<Town> townList = userServ.getTowns();
-        map.put("townList", townList);
+
         if (result.hasErrors()) {
             return "register";
         } else {

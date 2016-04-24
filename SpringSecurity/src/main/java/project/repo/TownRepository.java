@@ -9,7 +9,11 @@ import java.util.ArrayList;
 /**
  * Created by Daniel Shchepetov on 22.04.2016.
  */
+
 @Repository
-public interface TownRepository extends CrudRepository<Town, Integer>{
+public interface TownRepository extends CrudRepository<Town, Integer> {
+
     ArrayList<Town> findAll();
+
+
 }

@@ -112,18 +112,18 @@
                     <li class="disabled"><a href="#">&lt;</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="${firstUrl}?from=1">&lt;&lt;</a></li>
-                    <li><a href="${prevUrl}?from=1">&lt;</a></li>
+                    <li><a href="${firstUrl}">&lt;&lt;</a></li>
+                    <li><a href="${prevUrl}">&lt;</a></li>
                 </c:otherwise>
             </c:choose>
             <c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
                 <c:url var="pageUrl" value="/list/${i}"/>
                 <c:choose>
                     <c:when test="${i == currentIndex}">
-                        <li class="active"><a href="${pageUrl}?from=1"><c:out value="${i}"/></a></li>
+                        <li class="active"><a href="${pageUrl}"><c:out value="${i}"/></a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="${pageUrl}?from=1"><c:out value="${i}"/></a></li>
+                        <li><a href="${pageUrl}"><c:out value="${i}"/></a></li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -133,8 +133,8 @@
                     <li class="disabled"><a href="#">&gt;&gt;</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="${nextUrl}?from=1">&gt;</a></li>
-                    <li><a href="${lastUrl}?from=1">&gt;&gt;</a></li>
+                    <li><a href="${nextUrl}">&gt;</a></li>
+                    <li><a href="${lastUrl}">&gt;&gt;</a></li>
                 </c:otherwise>
             </c:choose>
         </ul>
@@ -144,7 +144,7 @@
     <div class="container">
         <div class="row">
 
-                <form method=GET class="form-inline" role="form">
+                <form method="GET" class="form-inline" role="form">
                 <input type="submit"class="btn btn-success btn-xs btn-filter" value="Применить фильтр" />
 
             <div class="table-responsive">

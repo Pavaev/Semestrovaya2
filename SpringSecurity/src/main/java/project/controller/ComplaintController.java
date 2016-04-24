@@ -88,17 +88,17 @@ public class ComplaintController {
     }
 
     @RequestMapping(value = "/list/{pageNum}*", method = RequestMethod.GET)
-    public String show(@PathVariable Integer pageNum,
-                       @RequestParam(required = false) String from,
-                       @RequestParam(required = false) String to,
-                       @RequestParam(required = false) String comp,
+    public String showNew(@PathVariable Integer pageNum,
+                          @RequestParam String from,
+                          @RequestParam String to,
+                          @RequestParam String comp,
                        ModelMap map) {
         Page<Complaint> page;
 
         if (pageNum != null) {
             page = complaintService.getPage(pageNum, from, to, comp);
         } else {
-            page = complaintService.getPage(1, from, to, comp);
+            page = complaintService.getPage(1,from,to,comp);
         }
         int current = page.getNumber() + 1;
         int begin = Math.max(1, current - 5);
@@ -107,7 +107,6 @@ public class ComplaintController {
         map.addAttribute("beginIndex", begin);
         map.addAttribute("endIndex", end);
         map.addAttribute("currentIndex", current);
-
         return "list";
     }
 

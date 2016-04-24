@@ -19,7 +19,7 @@
     </table>
     <table name="town" schema="" catalog="board" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="town" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="FKfdlpstjhg0ny1w47lay1bphr0" table="user" schema="" catalog="board" columns="town_id"/>
     </table>
@@ -33,7 +33,7 @@
       <column name="password" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
       <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="sex" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="town_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="town_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FKfdlpstjhg0ny1w47lay1bphr0" columns="town_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="FKfdlpstjhg0ny1w47lay1bphr0" unique="false" columns="town_id"/>

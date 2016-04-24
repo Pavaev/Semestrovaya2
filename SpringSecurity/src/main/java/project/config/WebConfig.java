@@ -1,28 +1,20 @@
 package project.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.PropertiesFactoryBean;
-import org.springframework.context.MessageSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.mvc.method.annotation.ServletWebArgumentResolverAdapter;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
-import project.util.StringToTown;
+import project.model.Town;
+import project.util.StringToEntityConverter;
 
 import java.util.Locale;
 
@@ -31,8 +23,6 @@ import java.util.Locale;
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    @Autowired
-    private StringToTown stringToTown;
 
     @Bean
     public UrlBasedViewResolver setupViewResolver() {
@@ -69,10 +59,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     }
 
-
     @Override
     public void addFormatters(FormatterRegistry formatterRegistry) {
-        formatterRegistry.addConverter(stringToTown);
+        formatterRegistry.addConverter(townGenericConverter());
+
+    }
+
+    @Bean
+    public StringToEntityConverter townGenericConverter(){
+        return new StringToEntityConverter(Town.class);
     }
 
 }

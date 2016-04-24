@@ -2,7 +2,11 @@ package project.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Daniel Shchepetov on 19.04.2016.
@@ -13,12 +17,24 @@ import java.io.Serializable;
 public class Town implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
-    @Column(unique = true, nullable = false)
-    private String town;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "town")
+    private List<Town> towns = new ArrayList<Town>();
+
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column
+    private String name;
+
+
+
+    public String toString(){
+        return getName();
+    }
 
 
     public int getId() {
@@ -29,11 +45,19 @@ public class Town implements Serializable {
         this.id = id;
     }
 
-    public String getTown() {
-        return town;
+    public String getName() {
+        return name;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Town> getTowns() {
+        return towns;
+    }
+
+    public void setTowns(List<Town> towns) {
+        this.towns = towns;
     }
 }

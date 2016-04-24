@@ -43,5 +43,13 @@ public class ComplaintService implements IComplaintService {
         return complaintRepo.findAllWithParams(request, Integer.parseInt(from), Integer.parseInt(to), comp);
     }
 
+    @Override
+    public Page<Complaint> getPage(Integer pageNum) {
+        PageRequest request =
+                new PageRequest(pageNum - 1, PAGE_SIZE);
+
+        return complaintRepo.findAll(request);
+    }
+
 
 }

@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO  )
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
@@ -49,13 +49,15 @@ public class User {
     @Column
     private String phone;
 
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Town", referencedColumnName="id", nullable = false)
     private Town town;
 
 
     @Column
     private String sex;
+
+
 
     public String getFirstName() {
         return firstName;
@@ -128,6 +130,7 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public Town getTown() {
         return town;

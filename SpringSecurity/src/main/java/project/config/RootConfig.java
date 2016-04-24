@@ -20,7 +20,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"project.model"})
+@ComponentScan(basePackages = {"project.model","project.service", "project.util"})
 @EnableJpaRepositories(basePackages = {"project.repo"})
 @PropertySource("classpath:/app.properties")
 public class RootConfig extends WebMvcConfigurerAdapter {
