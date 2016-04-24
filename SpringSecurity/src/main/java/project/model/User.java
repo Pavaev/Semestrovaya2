@@ -49,9 +49,8 @@ public class User {
     @Column
     private String phone;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Town", referencedColumnName="id", nullable = false)
-    private Town town;
+  @Column
+    private String town;
 
 
     @Column
@@ -132,11 +131,11 @@ public class User {
     }
 
 
-    public Town getTown() {
+    public String getTown() {
         return town;
     }
 
-    public void setTown(Town town) {
+    public void setTown(String town) {
         this.town = town;
     }
 }

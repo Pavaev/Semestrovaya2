@@ -22,8 +22,6 @@ public class Town implements Serializable {
     private int id;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "town")
-    private List<Town> towns = new ArrayList<Town>();
 
     @NotNull
     @Size(min = 1, max = 255)
@@ -53,11 +51,5 @@ public class Town implements Serializable {
         this.name = name;
     }
 
-    public List<Town> getTowns() {
-        return towns;
-    }
 
-    public void setTowns(List<Town> towns) {
-        this.towns = towns;
-    }
 }

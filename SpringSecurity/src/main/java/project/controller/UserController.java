@@ -42,10 +42,8 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String reg(ModelMap map) {
-        ArrayList<Town> townList = townServ.getTowns();
 
         map.put("user", new User());
-        map.put("townList", townList);
         return "register";
     }
 
