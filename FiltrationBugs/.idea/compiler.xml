@@ -22,11 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="SpringSecurity" />
+        <module name="FiltrationBugs" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="SpringSecurity" target="1.8" />
+      <module name="FiltrationBugs" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
