@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO  )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
@@ -22,15 +22,15 @@ public class User {
     @Column(nullable = false)
     @Length(max = 100)
     @NotBlank(message = "First Name cannot be empty")
-    private String firstName;
+    private String firstName="Иван";
 
     @Column(nullable = false)
     @Length(max = 100)
     @NotBlank(message = "Last Name cannot be empty")
-    private String lastName;
+    private String lastName="Иванов";
 
     @Column
-    private String midName;
+    private String midName="Иванович";
 
     @Column
     private String birth;
@@ -39,18 +39,19 @@ public class User {
     @NotBlank(message = "Email cannot be empty")
     @Column(nullable = false)
     @Length(max=36)
-    private String email;
+    private String email="28530@mail.ru";
 
     @NotBlank(message = "Password cannot be empty")
     @Column(nullable = false)
     @Length(max=30)
-    private String password;
+    private String password="12345";
 
     @Column
-    private String phone;
+    private String phone="88005553535";
 
-  @Column
-    private String town;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "town", referencedColumnName="id", nullable = false)
+    private Town town;
 
 
     @Column
@@ -131,11 +132,11 @@ public class User {
     }
 
 
-    public String getTown() {
+    public Town getTown() {
         return town;
     }
 
-    public void setTown(String town) {
+    public void setTown(Town town) {
         this.town = town;
     }
 }

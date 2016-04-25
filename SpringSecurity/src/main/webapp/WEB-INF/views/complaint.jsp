@@ -107,7 +107,8 @@
             <p class="pull-right visible-xs">
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
             </p>
-
+            <c:choose>
+            <c:when test="${not empty user}">
             <div class="col-md-12">
 
                 <div class="thumbnail">
@@ -199,10 +200,16 @@
 
                 </div>
 
+
+
             </div>
 
         </div>
-
+        </c:when>
+        <c:otherwise>
+            <h3 class="alert alert-danger">Страница удалена или еще не создана</h3>
+        </c:otherwise>
+        </c:choose>
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
             <div class="list-group">
@@ -219,9 +226,6 @@
 
     <hr>
 
-    <footer>
-        <p>&copy; Company 2016</p>
-    </footer>
 
 </div>
 <!--/.container-->

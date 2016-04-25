@@ -10,5 +10,6 @@ import java.util.ArrayList;
  */
 public interface IUserService {
     void add(User user);
+    User getOne(int id);
 
 }

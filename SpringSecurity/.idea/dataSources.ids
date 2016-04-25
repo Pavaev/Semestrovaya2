@@ -1,101 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - board@localhost" uuid="d4f949d0-541c-42c8-85d9-b8125c3d2d58">
+  <data-source name="MySQL - board@localhost" uuid="109cc5d3-9507-487c-a455-a0ce37eaa8ce">
     <database-info product="MySQL" version="5.6.27-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
-      <schema id="1" name="board"/>
-      <table id="2" parent="1" name="complaint"/>
-      <table id="3" parent="1" name="hibernate_sequence"/>
-      <table id="4" parent="1" name="town"/>
-      <table id="5" parent="1" name="user"/>
-      <column id="6" parent="2" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-        <sequence-identity>1</sequence-identity>
-      </column>
-      <column id="7" parent="2" name="company">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="8" parent="2" name="date">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="9" parent="2" name="header">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="10" parent="2" name="imageURI">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="11" parent="2" name="post">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="12" parent="2" name="user_id">
-        <data-type>int(11)</data-type>
-      </column>
-      <key id="13" parent="2" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="14" parent="3" name="next_val">
-        <data-type>bigint(20)</data-type>
-      </column>
-      <column id="15" parent="4" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="16" parent="4" name="name">
-        <mandatory>1</mandatory>
-        <data-type>varchar(255)</data-type>
-      </column>
-      <key id="17" parent="4" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-      <column id="18" parent="5" name="id">
-        <mandatory>1</mandatory>
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="19" parent="5" name="birth">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="20" parent="5" name="email">
-        <mandatory>1</mandatory>
-        <data-type>varchar(36)</data-type>
-      </column>
-      <column id="21" parent="5" name="firstName">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="22" parent="5" name="lastName">
-        <mandatory>1</mandatory>
-        <data-type>varchar(100)</data-type>
-      </column>
-      <column id="23" parent="5" name="midName">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="24" parent="5" name="password">
-        <mandatory>1</mandatory>
-        <data-type>varchar(30)</data-type>
-      </column>
-      <column id="25" parent="5" name="phone">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="26" parent="5" name="sex">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <column id="27" parent="5" name="town">
-        <data-type>varchar(255)</data-type>
-      </column>
-      <key id="28" parent="5" name="PRIMARY">
-        <columns>id</columns>
-        <primary>1</primary>
-      </key>
-    </database-model>
+    <schema name="" catalog="board"/>
+    <table name="complaint" schema="" catalog="board" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="company" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="date" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="header" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="imageURI" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="post" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="town" schema="" catalog="board" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK2ipsxi0lb2osap3casp2fj1xe" table="town_town" schema="" catalog="board" columns="towns_id"/>
+      <exported-key name="FKcb695wm71girp9hx533cbn8xl" table="town_town" schema="" catalog="board" columns="Town_id"/>
+      <exported-key name="FKrdo9su8vh99rgip20qjgyqei2" table="user" schema="" catalog="board" columns="town"/>
+    </table>
+    <table name="town_town" schema="" catalog="board" type="TABLE">
+      <column name="Town_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="towns_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="FK2ipsxi0lb2osap3casp2fj1xe" columns="towns_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKcb695wm71girp9hx533cbn8xl" columns="Town_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UK_5n019stywwi3b828oqoyfo96q" unique="true" columns="towns_id"/>
+      <index name="FKcb695wm71girp9hx533cbn8xl" unique="false" columns="Town_id"/>
+    </table>
+    <table name="user" schema="" catalog="board" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="birth" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <column name="firstName" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="lastName" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="midName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sex" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="town" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FKrdo9su8vh99rgip20qjgyqei2" columns="town" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKrdo9su8vh99rgip20qjgyqei2" unique="false" columns="town"/>
+    </table>
   </data-source>
 </component>

@@ -23,5 +23,6 @@ public class UserService implements IUserService {
     public void add(User user) {
         userRepo.save(user);
     }
+    public User getOne(int id){ return userRepo.findOne(id);}
 
 }

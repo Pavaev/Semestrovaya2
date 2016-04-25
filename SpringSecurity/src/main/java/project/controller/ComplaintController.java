@@ -33,12 +33,6 @@ public class ComplaintController {
     IComplaintService complaintService;
 
 
-    @RequestMapping("/complaint")
-    public String show() {
-
-        return "complaint";
-    }
-
 
     @RequestMapping("/complaint/{id}")
     public String show(@PathVariable int id, ModelMap map) {
@@ -89,9 +83,9 @@ public class ComplaintController {
 
     @RequestMapping(value = "/list/{pageNum}*", method = RequestMethod.GET)
     public String showNew(@PathVariable Integer pageNum,
-                          @RequestParam String from,
-                          @RequestParam String to,
-                          @RequestParam String comp,
+                          @RequestParam(required=false) String from,
+                          @RequestParam(required=false) String to,
+                          @RequestParam(required=false) String comp,
                        ModelMap map) {
         Page<Complaint> page;
 

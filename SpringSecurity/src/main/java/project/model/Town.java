@@ -17,10 +17,12 @@ import java.util.List;
 public class Town implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Town> towns = new ArrayList<Town>();
 
 
     @NotNull
@@ -52,4 +54,11 @@ public class Town implements Serializable {
     }
 
 
+    public List<Town> getTowns() {
+        return towns;
+    }
+
+    public void setTowns(List<Town> towns) {
+        this.towns = towns;
+    }
 }

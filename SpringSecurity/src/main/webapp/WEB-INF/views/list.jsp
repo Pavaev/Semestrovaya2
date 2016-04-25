@@ -98,7 +98,8 @@
 
 <div class="container">
 
-
+    <c:choose>
+    <c:when test="${not empty page.getContent()}">
     <c:url var="firstUrl" value="/list/1"/>
     <c:url var="lastUrl" value="/list/${page.totalPages}"/>
     <c:url var="prevUrl" value="/list/${currentIndex - 1}"/>
@@ -193,7 +194,11 @@
             </div>
                 </form>
         </div>
-
+        </c:when>
+        <c:otherwise>
+            <h3 class="alert alert-danger">Ничего не найдено</h3>
+        </c:otherwise>
+        </c:choose>
         <hr>
 
         <footer>
