@@ -43,8 +43,6 @@ public class Complaint {
     @Column
     private int user_id;
 
-    @Column
-    private String date;
 
     public Complaint() {
     }
@@ -58,7 +56,6 @@ public class Complaint {
         hash = 41 * hash + Objects.hashCode(this.imageURI);
         hash = 41 * hash + Objects.hashCode(this.post);
         hash = 41 * hash + Objects.hashCode(this.header);
-        hash = 41 * hash + Objects.hashCode(this.date);
         return hash;
     }
 
@@ -134,13 +131,6 @@ public class Complaint {
         this.post = post;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public int getUser_id() {
         return user_id;

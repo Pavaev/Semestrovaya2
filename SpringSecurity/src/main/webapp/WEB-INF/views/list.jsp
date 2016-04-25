@@ -100,10 +100,13 @@
 
     <c:choose>
     <c:when test="${not empty page.getContent()}">
-    <c:url var="firstUrl" value="/list/1"/>
-    <c:url var="lastUrl" value="/list/${page.totalPages}"/>
-    <c:url var="prevUrl" value="/list/${currentIndex - 1}"/>
-    <c:url var="nextUrl" value="/list/${currentIndex + 1}"/>
+
+
+        <c:url var="firstUrl" value="/list/1"/>
+        <c:url var="lastUrl" value="/list/${page.totalPages}"/>
+        <c:url var="prevUrl" value="/list/${currentIndex - 1}"/>
+        <c:url var="nextUrl" value="/list/${currentIndex + 1}"/>
+
 
     <div class="pagination">
         <ul class="pagination">
@@ -145,54 +148,57 @@
     <div class="container">
         <div class="row">
 
-                <form method="GET" class="form-inline" role="form">
-                <input type="submit"class="btn btn-success btn-xs btn-filter" value="Применить фильтр" />
+            <form method="GET" class="form-inline" role="form">
+                <input type="submit" class="btn btn-success btn-xs btn-filter" value="Применить фильтр"/>
 
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
 
                                 <div class="btn-group">
-                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Фильтр <span class="caret"></span> </button>
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                                            aria-expanded="false">Фильтр <span class="caret"></span></button>
                                     <div class="dropdown-menu" role="menu">
                                         <div class="input-group">
-                                            <input type="number" name="from" value=1 class="form-control input-number" min=1>
-                                            <label class="input-group-addon">От</label> </div>
+                                            <input type="number" name="from" value=1 class="form-control input-number"
+                                                   min=1>
+                                            <label class="input-group-addon">От</label></div>
                                         <div class="input-group">
                                             <input type="number" name="to" value=1 class="form-control" min=1/>
-                                            <label class="input-group-addon">До</label> </div>
+                                            <label class="input-group-addon">До</label></div>
                                     </div>
                                 </div>
 
-                            <p class="column-heading">#</p>
-                        </th>
-                        <th>
-                            <input type="text" class="form-control" placeholder="Фильтр" name="comp">
-                            <p class="column-heading"> Название фирмы </p> </th>
+                                <p class="column-heading">#</p>
+                            </th>
+                            <th>
+                                <input type="text" class="form-control" placeholder="Фильтр" name="comp">
 
-                        <th>Заголовок</th>
-                        <th>Текст</th>
-                        <th>Дата</th>
-                        <th>Имя пользователя</th>
-                    </tr>
-                    </thead>
-                    <c:forEach var="complaint" items="${page.getContent()}">
-                        <tr>
-                            <td>${complaint.id}</td>
-                            <td>${complaint.company}</td>
-                            <td>${complaint.header}</td>
-                            <td>${complaint.post}</td>
-                            <td>${complaint.date}</td>
-                            <td>${complaint.user_id}</td>
-                            <td class="text-center"><a class='btn btn-info btn-xs' href="<c:url value="/complaint/${complaint.id}"/>"><span class="glyphicon glyphicon-edit"></span> Подробнее</a>
+                                <p class="column-heading"> Название фирмы </p></th>
+
+                            <th>Заголовок</th>
+                            <th>Текст</th>
+                            <th>Имя пользователя</th>
                         </tr>
-                    </c:forEach>
-                </table>
+                        </thead>
+                        <c:forEach var="complaint" items="${page.getContent()}">
+                            <tr>
+                                <td>${complaint.id}</td>
+                                <td>${complaint.company}</td>
+                                <td>${complaint.header}</td>
+                                <td>${complaint.post}</td>
+                                <td>${complaint.user_id}</td>
+                                <td class="text-center"><a class='btn btn-info btn-xs'
+                                                           href="<c:url value="/complaint/${complaint.id}"/>"><span
+                                        class="glyphicon glyphicon-edit"></span> Подробнее</a>
+                            </tr>
+                        </c:forEach>
+                    </table>
 
-            </div>
-                </form>
+                </div>
+            </form>
         </div>
         </c:when>
         <c:otherwise>

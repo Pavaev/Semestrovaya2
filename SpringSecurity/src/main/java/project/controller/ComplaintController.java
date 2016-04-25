@@ -33,7 +33,6 @@ public class ComplaintController {
     IComplaintService complaintService;
 
 
-
     @RequestMapping("/complaint/{id}")
     public String show(@PathVariable int id, ModelMap map) {
         map.put("complaint", complaintService.getOne(id));
@@ -83,17 +82,22 @@ public class ComplaintController {
 
     @RequestMapping(value = "/list/{pageNum}*", method = RequestMethod.GET)
     public String showNew(@PathVariable Integer pageNum,
-                          @RequestParam(required=false) String from,
-                          @RequestParam(required=false) String to,
-                          @RequestParam(required=false) String comp,
-                       ModelMap map) {
+                          @RequestParam(required = false) String from,
+                          @RequestParam(required = false) String to,
+                          @RequestParam(required = false) String comp,
+                          ModelMap map) {
         Page<Complaint> page;
 
         if (pageNum != null) {
             page = complaintService.getPage(pageNum, from, to, comp);
         } else {
-            page = complaintService.getPage(1,from,to,comp);
+            page = complaintService.getPage(1, from, to, comp);
         }
+
+        if (comp == null) {
+            comp = "";
+        }
+
         int current = page.getNumber() + 1;
         int begin = Math.max(1, current - 5);
         int end = Math.min(begin + 10, page.getTotalPages());
@@ -101,6 +105,14 @@ public class ComplaintController {
         map.addAttribute("beginIndex", begin);
         map.addAttribute("endIndex", end);
         map.addAttribute("currentIndex", current);
+
+        if (!(from == null || "".equals(from) && !(to == null || "".equals(to)))) {
+            map.addAttribute("from", from);
+            map.addAttribute("to", to);
+            map.addAttribute("comp", comp);
+            return "listparam";
+        }
+
         return "list";
     }
 

@@ -132,24 +132,7 @@
 
             </div>
         </div>
-        <div class="form-group">
-            <form:label class="control-label col-xs-3" path="birth">Дата рождения:</form:label>
-            <div class="col-xs-3">
-                <form:select class="form-control" path="birth">
-                    <option>Дата</option>
-                </form:select>
-            </div>
-            <div class="col-xs-3">
-                <form:select class="form-control" path="birth">
-                    <option>Месяц</option>
-                </form:select>
-            </div>
-            <div class="col-xs-3">
-                <form:select class="form-control" path="birth">
-                    <option>Год</option>
-                </form:select>
-            </div>
-        </div>
+
         <div class="form-group">
             <form:label class="control-label col-xs-3" for="inputEmail" path="email">Email:</form:label>
             <div class="col-xs-9">
@@ -193,12 +176,12 @@
             <form:label class="control-label col-xs-3" for="sex" path="sex">Пол:</form:label>
             <div class="col-xs-2">
                 <form:label class="radio-inline" path="sex">
-                    <form:radiobutton name="genderRadios" value="male" id="sex" path="sex"/> Мужской
+                    <form:radiobutton name="genderRadios" value="Мужской" id="sex" path="sex"/> Мужской
                 </form:label>
             </div>
             <div class="col-xs-2">
                 <label class="radio-inline">
-                    <form:radiobutton name="genderRadios" value="female" id="sex" path="sex"/> Женский
+                    <form:radiobutton name="genderRadios" value="Женский" id="sex" path="sex"/> Женский
                 </label>
             </div>
             <form:errors path="sex"/>

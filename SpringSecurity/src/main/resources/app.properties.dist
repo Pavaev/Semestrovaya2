@@ -7,6 +7,6 @@ db.password   =
 #Hibernate Configuration:
 hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
 hibernate.show_sql=true
-entitymanager.packages.to.scan=project
+entitymanager.packages.to.scan=project.model
 hibernate.hbm2ddl.auto =validate
 hibernate.enable_lazy_load_no_trans=true

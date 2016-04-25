@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Daniel Shchepetov on 19.04.2016.
@@ -31,8 +32,34 @@ public class Town implements Serializable {
     private String name;
 
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 71 * hash + this.id;
+        hash = 71 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
 
-    public String toString(){
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Town other = (Town) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public String toString() {
         return getName();
     }
 

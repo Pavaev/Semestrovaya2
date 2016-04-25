@@ -108,7 +108,7 @@
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
             </p>
             <c:choose>
-            <c:when test="${not empty user}">
+            <c:when test="${not empty complaint}">
             <div class="col-md-12">
 
                 <div class="thumbnail">
@@ -116,8 +116,7 @@
 
                 </div>
                 <div class="caption-full">
-                    <c:choose>
-                        <c:when test="${not empty complaint}">
+
                             <h4>${complaint.header}
                             </h4>
                             <a href="${s:mvcUrl("CC#delete").arg(0, complaint.id).build()}">
@@ -125,10 +124,7 @@
                             </a>
                             <p>${complaint.post}</p>
                             <b>${complaint.company}</b>
-                        </c:when>
 
-                        <c:otherwise><c:redirect url="../404"/></c:otherwise>
-                    </c:choose>
 
 
                     <div class="ratings">
