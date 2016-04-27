@@ -4,9 +4,7 @@ package project.model;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.CredentialsContainer;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
@@ -40,13 +38,12 @@ public class User implements CredentialsContainer, UserDetails {
     @Email(message = "This email is not valid")
     @NotBlank(message = "Email cannot be empty")
     @Column(nullable = false)
-    @Length(max = 36)
+    @Length(min=6, max = 30)
     private String email = "28530@mail.ru";
 
     @NotBlank(message = "Password cannot be empty")
     @Column(nullable = false)
-    @Length(max = 30)
-    private String password = "12345";
+    private String password = "123456";
 
     @Column
     private String phone = "88005553535";

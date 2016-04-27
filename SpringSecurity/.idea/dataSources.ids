@@ -16,5 +16,51 @@
       <column name="coords" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
+    <table name="town" schema="" catalog="board" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK2ipsxi0lb2osap3casp2fj1xe" table="town_town" schema="" catalog="board" columns="towns_id"/>
+      <exported-key name="FKcb695wm71girp9hx533cbn8xl" table="town_town" schema="" catalog="board" columns="Town_id"/>
+      <exported-key name="FKfdlpstjhg0ny1w47lay1bphr0" table="user" schema="" catalog="board" columns="town_id"/>
+    </table>
+    <table name="town_town" schema="" catalog="board" type="TABLE">
+      <column name="Town_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="towns_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="FK2ipsxi0lb2osap3casp2fj1xe" columns="towns_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKcb695wm71girp9hx533cbn8xl" columns="Town_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UK_5n019stywwi3b828oqoyfo96q" unique="true" columns="towns_id"/>
+      <index name="FKcb695wm71girp9hx533cbn8xl" unique="false" columns="Town_id"/>
+    </table>
+    <table name="user" schema="" catalog="board" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="email" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
+      <column name="firstName" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="lastName" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="midName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sex" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="town_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FKfdlpstjhg0ny1w47lay1bphr0" columns="town_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKht82afolyn6n3t5wvny5ce6mq" table="user_user_role" schema="" catalog="board" columns="user"/>
+      <index name="FKfdlpstjhg0ny1w47lay1bphr0" unique="false" columns="town_id"/>
+    </table>
+    <table name="user_role" schema="" catalog="board" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="authority" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FKm73faupeogv09wl4udlqplxpx" table="user_user_role" schema="" catalog="board" columns="user_role"/>
+      <index name="UK_5m6djlf6toudifyf07bh74ich" unique="true" columns="authority"/>
+    </table>
+    <table name="user_user_role" schema="" catalog="board" type="TABLE">
+      <column name="user" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="user_role" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="user,user_role"/>
+      <foreign-key name="FKht82afolyn6n3t5wvny5ce6mq" columns="user" ref-table="user" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKm73faupeogv09wl4udlqplxpx" columns="user_role" ref-table="user_role" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKm73faupeogv09wl4udlqplxpx" unique="false" columns="user_role"/>
+    </table>
   </data-source>
 </component>

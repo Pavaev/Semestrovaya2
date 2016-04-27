@@ -20,7 +20,6 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"project.model","project.service", "project.util"})
 @EnableJpaRepositories(basePackages = {"project.repo"})
 @PropertySource("classpath:/app.properties")
-@Import({ SecurityConfig.class })
 public class RootConfig extends WebMvcConfigurerAdapter {
 
     @Autowired

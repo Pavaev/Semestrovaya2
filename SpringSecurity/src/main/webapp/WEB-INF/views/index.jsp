@@ -1,6 +1,6 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" language="java"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,6 @@
     <link rel="shortcut icon" href="../assets/ico/favicon.ico">
 
     <title>Доска позора|Пожаловаться на некачественные товары и слуги|Отзывы</title>
-
 
 
     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,8 +29,8 @@
 
 <body>
 <%
-        request.setCharacterEncoding("UTF-8");
-        %>
+    request.setCharacterEncoding("UTF-8");
+%>
 
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
     <div class="container">
@@ -51,50 +50,9 @@
                 <li><a href="#contact">Контакты</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Войти</b> <span class="caret"></span></a>
-                    <ul id="login-dp" class="dropdown-menu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <b>Войти</b>
-
-                                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8"
-                                          id="login-nav">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputEmail2">Email </label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2"
-                                                   placeholder="Email address" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputPassword2">Пароль</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword2"
-                                                   placeholder="Password" required>
-
-                                            <div class="help-block text-right"><a href="">Забыли пароль ?</a></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Войти</button>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> Оставаться в сети
-                                            </label>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="bottom text-center">
-                                    Еще нет профиля ? <a href="${s:mvcUrl('SC#register').build()}"><b>Присоединиться</b></a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
+                <li><a href="${s:mvcUrl('SC#login').build()}">Войти</a></li>
                 <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Найти...">
-            </form>
         </div>
         <!-- /.nav-collapse -->
     </div>
@@ -116,7 +74,8 @@
                 <p>Здесь вы можете поделиться своими замечаниями о некачественных товарах или услугах, а также
                     ознакомиться с отзывами других потребителей</p>
             </div>
-            <a href="${s:mvcUrl('CC#complaint').build()}" role="button" class="btn btn-success btn-lg btn-block">Написать отзыв</a>
+            <a href="${s:mvcUrl('CC#complaint').build()}" role="button" class="btn btn-success btn-lg btn-block">Написать
+                отзыв</a>
 
 
         </div>
@@ -134,7 +93,6 @@
         <!--/span-->
     </div>
     <!--/row-->
-
 
 
     <hr>

@@ -28,7 +28,7 @@ public class Town implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 255)
-    @Column
+    @Column(unique = true, nullable = false)
     private String name;
 
 

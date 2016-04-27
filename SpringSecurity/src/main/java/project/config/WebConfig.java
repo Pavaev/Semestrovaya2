@@ -22,7 +22,6 @@ import java.util.Locale;
 @Configuration
 @ComponentScan(basePackages = {"project.controller", "project.service", "project.util"})
 @EnableWebMvc
-@Import({ SecurityConfig.class })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 

@@ -8,6 +8,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
 import javax.servlet.ServletRegistration;
+import java.security.Security;
 
 public class WebInitializer extends AbstractDispatcherServletInitializer {
 
@@ -19,14 +20,14 @@ public class WebInitializer extends AbstractDispatcherServletInitializer {
     @Override
     protected WebApplicationContext createRootApplicationContext() {
         AnnotationConfigWebApplicationContext cxt = new AnnotationConfigWebApplicationContext();
-        cxt.register(RootConfig.class);
+        cxt.register(RootConfig.class, SecurityConfig.class);
         return cxt;
     }
 
     @Override
     protected WebApplicationContext createServletApplicationContext() {
         AnnotationConfigWebApplicationContext cxt = new AnnotationConfigWebApplicationContext();
-        cxt.register(WebConfig.class);
+        cxt.register(WebConfig.class, SecurityConfig.class);
         return cxt;
     }
 
