@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
 <!DOCTYPE html>
@@ -27,6 +27,32 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        ymaps.ready(init);
+
+        function init() {
+                    myMap = new ymaps.Map('map', {
+                        center: [${complaint.coords}],
+                        zoom: 13
+                    }, {
+                        searchControlProvider: 'yandex#search'
+                    });
+
+
+            myGeoObject = new ymaps.GeoObject({
+                geometry: {
+                    type: "Point",
+                    coordinates: [${complaint.coords}]
+                },
+
+            }, {
+                draggable: false
+            })
+
+            myMap.geoObjects.add(myGeoObject);
+        }</script>
 </head>
 
 <body>
@@ -81,13 +107,13 @@
                                     </form>
                                 </div>
                                 <div class="bottom text-center">
-                                    Еще нет профиля ? <a href="${s:mvcUrl('UC#register').build()}"><b>Присоединиться</b></a>
+                                    Еще нет профиля ? <a href="${s:mvcUrl('SC#register').build()}"><b>Присоединиться</b></a>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </li>
-                <li><a href="${s:mvcUrl('UC#register').build()}">Регистрация</a></li>
+                <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Найти...">
@@ -111,116 +137,113 @@
             <c:when test="${not empty complaint}">
             <div class="col-md-12">
 
-                <div class="thumbnail">
-                    <img data-src="holder.js/800x300" alt="..." class="img-responsive">
-
-                </div>
                 <div class="caption-full">
 
-                            <h4>${complaint.header}
-                            </h4>
-                            <a href="${s:mvcUrl("CC#delete").arg(0, complaint.id).build()}">
-                                <button class="pull-right btn-danger">Remove</button>
-                            </a>
-                            <p>${complaint.post}</p>
-                            <b>${complaint.company}</b>
+                    <div id="map" style="width: 600px; height: 400px"></div>
+                </div>
+                <h4>${complaint.header}
+                </h4>
+                <a href="${s:mvcUrl("CC#delete").arg(0, complaint.id).build()}">
+                    <button class="pull-right btn-danger">Remove</button>
+                </a>
+
+                <p>${complaint.post}</p>
+                <b>${complaint.company}</b>
 
 
+                <div class="ratings">
 
-                    <div class="ratings">
+                    <p class="pull-right">3 reviews</p>
 
-                        <p class="pull-right">3 reviews</p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        4.0 stars
+                    </p>
+                </div>
+            </div>
 
-                        <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            4.0 stars
-                        </p>
+            <div class="well">
+
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        Anonymous
+                        <span class="pull-right">10 days ago</span>
+
+                        <p>This product was great in terms of quality. I would definitely buy another!</p>
                     </div>
                 </div>
 
-                <div class="well">
+                <hr>
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        Anonymous
+                        <span class="pull-right">12 days ago</span>
 
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">10 days ago</span>
-
-                            <p>This product was great in terms of quality. I would definitely buy another!</p>
-                        </div>
+                        <p>I've alredy ordered another one!</p>
                     </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">12 days ago</span>
-
-                            <p>I've alredy ordered another one!</p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">15 days ago</span>
-
-                            <p>I've seen some better than this, but not at this price. I definitely recommend this
-                                item.</p>
-                        </div>
-                    </div>
-
                 </div>
 
+                <hr>
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        Anonymous
+                        <span class="pull-right">15 days ago</span>
+
+                        <p>I've seen some better than this, but not at this price. I definitely recommend this
+                            item.</p>
+                    </div>
+                </div>
 
             </div>
 
-        </div>
-        </c:when>
-        <c:otherwise>
-            <h3 class="alert alert-danger">Страница удалена или еще не создана</h3>
-        </c:otherwise>
-        </c:choose>
 
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Магазины</a>
-                <a href="#" class="list-group-item">Кафе и рестораны</a>
-                <a href="#" class="list-group-item">Строительные фирмы</a>
-                <a href="#" class="list-group-item">Услуги</a>
-                <a href="#" class="list-group-item">Прочее</a>
-            </div>
         </div>
-        <!--/span-->
+
     </div>
-    <!--/row-->
+    </c:when>
+    <c:otherwise>
+        <h3 class="alert alert-danger">Страница удалена или еще не создана</h3>
+    </c:otherwise>
+    </c:choose>
 
-    <hr>
+    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">Магазины</a>
+            <a href="#" class="list-group-item">Кафе и рестораны</a>
+            <a href="#" class="list-group-item">Строительные фирмы</a>
+            <a href="#" class="list-group-item">Услуги</a>
+            <a href="#" class="list-group-item">Прочее</a>
+        </div>
+    </div>
+    <!--/span-->
+</div>
+<!--/row-->
+
+<hr>
 
 
 </div>

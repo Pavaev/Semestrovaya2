@@ -32,16 +32,10 @@ public class UserController {
 
     @RequestMapping("/")
     public String index() {
-
         return "index";
     }
 
 
-    @RequestMapping("/user/id{id}")
-    public String show(@PathVariable int id, ModelMap map) {
-        map.put("user", userServ.getOne(id));
-        return "profile";
-    }
 
     @RequestMapping("/user/id{id}/delete")
     public String delete(@PathVariable int id, ModelMap map) {
@@ -54,33 +48,7 @@ public class UserController {
         return "profile";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String reg(ModelMap map) {
-        ArrayList<Town> townList = townServ.getTowns();
-        map.put("user", new User());
-        map.put("townList", townList);
-        return "register";
-    }
 
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(
-            RedirectAttributes redirectAttributes,
-            @Valid @ModelAttribute("user")User user,
-            BindingResult result,
-            ModelMap map
-    ) {
-        ArrayList<Town> townList = townServ.getTowns();
-        map.put("townList", townList);
-        if (result.hasErrors()) {
-            return "register";
-        } else {
-            userServ.add(user);
-            redirectAttributes.addFlashAttribute("message", "<span style=\"color:green\">User with email: \"" + user.getEmail() + "\" has been added successfully</span>");
-            return "redirect:" + MvcUriComponentsBuilder.fromMappingName("UC#register").build();
-        }
-
-    }
 
 
 }

@@ -1,28 +1,47 @@
 package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import project.model.Town;
 import project.model.User;
-import project.repo.ComplaintRepository;
-import project.repo.TownRepository;
+import project.repo.UserAuthorityRepository;
 import project.repo.UserRepository;
 
-import java.util.ArrayList;
 
 /**
  * Created by Daniel Shchepetov on 22.04.2016.
  */
 @Service
-public class UserService implements IUserService {
+public class UserService implements IUserService, UserDetailsService {
 
     @Autowired
-    UserRepository userRepo;
+   private UserRepository userRepo;
+
+    @Autowired
+   private  UserAuthorityRepository userAuthorityRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
-    public void add(User user) {
-        userRepo.save(user);
+        public void register(User user) {
+            if(userRepo.findByEmail(user.getEmail()) != null){
+                throw new DuplicateKeyException("Такой email уже зарегистрирован");
+            }
+            user.addAuthority(userAuthorityRepo.findByAuthority("ROLE_USER"));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepo.save(user);
     }
     public User getOne(int id){ return userRepo.findOne(id);}
 
+
+    @Override
+    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+        return userRepo.findByEmail(email);
+    }
 }

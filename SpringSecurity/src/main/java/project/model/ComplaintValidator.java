@@ -22,11 +22,6 @@ public class ComplaintValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(e, "header", "field.required", "Error with header!");
         ValidationUtils.rejectIfEmptyOrWhitespace(e, "post", "field.required", "Error with text!");
        Complaint a = (Complaint) obj;
-        try {
-            new URL(a.getImageURI());
-        } catch (MalformedURLException ex) {
-            e.rejectValue("imageURI", "URL.incorrect", "Error with uri!");
-        }
     }
 
 }

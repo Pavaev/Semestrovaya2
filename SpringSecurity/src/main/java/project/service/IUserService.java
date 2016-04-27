@@ -9,7 +9,8 @@ import java.util.ArrayList;
  * Created by Daniel Shchepetov on 22.04.2016.
  */
 public interface IUserService {
-    void add(User user);
+    void register(User user);
+
     User getOne(int id);
 
 }

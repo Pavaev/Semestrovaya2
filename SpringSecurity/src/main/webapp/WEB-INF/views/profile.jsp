@@ -1,5 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
 <!DOCTYPE html>
@@ -80,13 +80,13 @@
                                     </form>
                                 </div>
                                 <div class="bottom text-center">
-                                    Еще нет профиля ? <a href="${s:mvcUrl('UC#register').build()}"><b>Присоединиться</b></a>
+                                    Еще нет профиля ? <a href="${s:mvcUrl('SC#register').build()}"><b>Присоединиться</b></a>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </li>
-                <li><a href="${s:mvcUrl('UC#register').build()}">Регистрация</a></li>
+                <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Найти...">

@@ -26,12 +26,6 @@ public class Complaint {
 
 
     @Length(max = 255)
-    @URL
-    @Column
-    private String imageURI = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Flatland_cover.jpg/200px-Flatland_cover.jpg";
-
-
-    @Length(max = 255)
     @Column(nullable = false)
     private String post;
 
@@ -39,6 +33,10 @@ public class Complaint {
     @Length(max = 100)
     @Column(nullable = false)
     private String header;
+
+    @Column
+    private String coords;
+
 
     @Column
     private int user_id;
@@ -53,7 +51,6 @@ public class Complaint {
         int hash = 3;
         hash = 41 * hash + this.id;
         hash = 41 * hash + Objects.hashCode(this.company);
-        hash = 41 * hash + Objects.hashCode(this.imageURI);
         hash = 41 * hash + Objects.hashCode(this.post);
         hash = 41 * hash + Objects.hashCode(this.header);
         return hash;
@@ -74,9 +71,6 @@ public class Complaint {
         if (!Objects.equals(this.company, other.company)) {
             return false;
         }
-        if (!Objects.equals(this.imageURI, other.imageURI)) {
-            return false;
-        }
         if (!Objects.equals(this.post, other.post)) {
             return false;
         }
@@ -93,15 +87,6 @@ public class Complaint {
 
     public void setHeader(String header) {
         this.header = header;
-    }
-
-
-    public String getImageURI() {
-        return imageURI;
-    }
-
-    public void setImageURI(String imageURI) {
-        this.imageURI = imageURI;
     }
 
 
@@ -138,5 +123,13 @@ public class Complaint {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public String getCoords() {
+        return coords;
+    }
+
+    public void setCoords(String coords) {
+        this.coords = coords;
     }
 }

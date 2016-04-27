@@ -11,40 +11,10 @@
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="company" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
       <column name="header" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
-      <column name="imageURI" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="post" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="coords" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="town" schema="" catalog="board" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="FK2ipsxi0lb2osap3casp2fj1xe" table="town_town" schema="" catalog="board" columns="towns_id"/>
-      <exported-key name="FKcb695wm71girp9hx533cbn8xl" table="town_town" schema="" catalog="board" columns="Town_id"/>
-      <exported-key name="FKrdo9su8vh99rgip20qjgyqei2" table="user" schema="" catalog="board" columns="town"/>
-    </table>
-    <table name="town_town" schema="" catalog="board" type="TABLE">
-      <column name="Town_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="towns_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <foreign-key name="FK2ipsxi0lb2osap3casp2fj1xe" columns="towns_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="FKcb695wm71girp9hx533cbn8xl" columns="Town_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="UK_5n019stywwi3b828oqoyfo96q" unique="true" columns="towns_id"/>
-      <index name="FKcb695wm71girp9hx533cbn8xl" unique="false" columns="Town_id"/>
-    </table>
-    <table name="user" schema="" catalog="board" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="email" sqlType="VARCHAR" precision="36" scale="0" nullable="false" jdbcType="12"/>
-      <column name="firstName" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
-      <column name="lastName" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
-      <column name="midName" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
-      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="sex" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="town" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="FKrdo9su8vh99rgip20qjgyqei2" columns="town" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="FKrdo9su8vh99rgip20qjgyqei2" unique="false" columns="town"/>
     </table>
   </data-source>
 </component>
