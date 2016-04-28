@@ -2,6 +2,7 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -53,8 +54,8 @@
         <li><a href="#contact">Контакты</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href=#>Войти</a></li>
-        <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
+          <li><a href="${s:mvcUrl('SC#login').build()}">Войти</a></li>
+          <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
       </ul>
     </div>
     <!-- /.nav-collapse -->
@@ -65,16 +66,11 @@
 
 <div class="container">
 
-  <c:if test="${error != null}">
-    <div class="text-danger">
-      Wrong email or password.
-    </div>
-  </c:if>
 
   <form:form class="form-signin" commandName="login">
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="inputEmail" class="sr-only">Email address</label>
-    <form:input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="true" autofocus="true" path="email"/>
+    <form:input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="true" autofocus="true" path="username"/>
     <label for="inputPassword" class="sr-only">Password</label>
     <form:input type="password" id="inputPassword" class="form-control" placeholder="Password" required="true" path="password"/>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

@@ -30,7 +30,7 @@ public class UserService implements IUserService, UserDetailsService {
 
     @Override
         public void register(User user) {
-            if(userRepo.findByEmail(user.getEmail()) != null){
+            if(userRepo.findByUsername(user.getUsername()) != null){
                 throw new DuplicateKeyException("Такой email уже зарегистрирован");
             }
             user.addAuthority(userAuthorityRepo.findByAuthority("ROLE_USER"));
@@ -41,7 +41,7 @@ public class UserService implements IUserService, UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
-        return userRepo.findByEmail(email);
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        return userRepo.findByUsername(username);
     }
 }

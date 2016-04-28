@@ -3,6 +3,7 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -72,7 +73,7 @@ public class SecurityController {
                 redirectAttributes.addFlashAttribute("messageType", "success");
                 return "redirect:" + MvcUriComponentsBuilder.fromPath("/").build();
             } catch (DuplicateKeyException ex) {
-                result.rejectValue("email", "entry.duplicate", "There is account with such email already.");
+                result.rejectValue("username", "entry.duplicate", "There is account with such email already.");
             }
         }
         return showRegisterForm(map);
@@ -81,15 +82,25 @@ public class SecurityController {
 
     @RequestMapping(value = "/login")
     @PreAuthorize("isAnonymous()")
-    public String login(@RequestParam(required = false) String error, @ModelAttribute("login") Login login, BindingResult result, ModelMap map) {
-        map.put("error", error);
+    public String login(@ModelAttribute("login") Login login, BindingResult result, ModelMap map) {
         return "login";
     }
 
 
     @RequestMapping("/user/id{id}")
-    public String profile(HttpServletRequest request, @PathVariable int id, ModelMap map) {
-        map.put("user", userServ.getOne(id));
+    public String user( @PathVariable int id, ModelMap map) {
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(user!=null&&user.getId()==id){
+            map.put("user", user);
+        }else{
+        map.put("user", userServ.getOne(id));}
+        return "profile";
+    }
+    @RequestMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
+    public String profile(HttpServletRequest request, ModelMap map) {
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        map.put("user", user);
         return "profile";
     }
 

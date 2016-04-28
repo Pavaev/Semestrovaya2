@@ -17,7 +17,7 @@ import project.service.IUserService;
 import project.service.UserService;
 
 
-@ComponentScan("project.service")
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login").failureUrl("/login?error").usernameParameter("email").passwordParameter("password")
+                .formLogin().loginPage("/login").failureUrl("/login").usernameParameter("username").passwordParameter("password")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()

@@ -2,6 +2,7 @@
 <%@page contentType="text/html;charset=utf-8"  pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,8 +112,15 @@
                 <li><a href="#contact">Контакты</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href=#>Войти</a></li>
-                <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
+                <sec:authorize access="isAnonymous()">
+                    <li><a href="${s:mvcUrl('SC#login').build()}">Войти</a></li>
+                    <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <li><a href="<c:url value="/user/id"/>">Мой профиль</a></li>
+                    <li><a href="<c:url value="/logout"/>">Выход</a></li>
+                </sec:authorize>
+
             </ul>
         </div>
         <!-- /.nav-collapse -->

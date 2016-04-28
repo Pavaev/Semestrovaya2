@@ -10,5 +10,5 @@ import project.model.User;
  */
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
-    User findByEmail(String email);
+    User findByUsername(String username);
 }

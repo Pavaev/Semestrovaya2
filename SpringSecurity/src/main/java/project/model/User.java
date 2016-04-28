@@ -39,7 +39,7 @@ public class User implements CredentialsContainer, UserDetails {
     @NotBlank(message = "Email cannot be empty")
     @Column(nullable = false)
     @Length(min=6, max = 30)
-    private String email = "28530@mail.ru";
+    private String username = "28530@mail.ru";
 
     @NotBlank(message = "Password cannot be empty")
     @Column(nullable = false)
@@ -73,7 +73,7 @@ public class User implements CredentialsContainer, UserDetails {
         hash = 71 * hash + Objects.hashCode(this.firstName);
         hash = 71 * hash + Objects.hashCode(this.lastName);
         hash = 71 * hash + Objects.hashCode(this.midName);
-        hash = 71 * hash + Objects.hashCode(this.email);
+        hash = 71 * hash + Objects.hashCode(this.username);
         hash = 71 * hash + Objects.hashCode(this.phone);
         return hash;
     }
@@ -99,7 +99,7 @@ public class User implements CredentialsContainer, UserDetails {
         if (!Objects.equals(this.midName, other.midName)) {
             return false;
         }
-        if (!Objects.equals(this.email, other.email)) {
+        if (!Objects.equals(this.username, other.username)) {
             return false;
         }
         if (!Objects.equals(this.phone, other.phone)) {
@@ -125,13 +125,6 @@ public class User implements CredentialsContainer, UserDetails {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getPhone() {
         return phone;
@@ -177,7 +170,7 @@ public class User implements CredentialsContainer, UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
 
@@ -228,4 +221,7 @@ public class User implements CredentialsContainer, UserDetails {
     }
 
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
