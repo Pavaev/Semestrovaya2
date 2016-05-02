@@ -10,10 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.aspectJ.Log;
 import project.model.Login;
 import project.model.Town;
 import project.model.User;
 import project.repo.UserAuthorityRepository;
+import project.service.IUserService;
 import project.service.TownService;
 import project.service.UserService;
 
@@ -31,18 +33,11 @@ public class SecurityController {
     TownService townServ;
 
     @Autowired
-    private UserService userServ;
+    private IUserService userServ;
 
     @Autowired
     private UserAuthorityRepository userAuthorityRepo;
 
-
-
-
-    protected String showRegisterForm(ModelMap map){
-        map.put("userAuthorities", userAuthorityRepo.findAll());
-        return "register";
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     @PreAuthorize("isAnonymous()")
@@ -50,7 +45,8 @@ public class SecurityController {
         ArrayList<Town> townList = townServ.getTowns();
         map.put("user", new User());
         map.put("townList", townList);
-        return showRegisterForm(map);
+        map.put("userAuthorities", userAuthorityRepo.findAll());
+        return "register";
     }
 
 
@@ -76,7 +72,8 @@ public class SecurityController {
                 result.rejectValue("username", "entry.duplicate", "There is account with such email already.");
             }
         }
-        return showRegisterForm(map);
+        map.put("userAuthorities", userAuthorityRepo.findAll());
+        return "register";
     }
 
 
@@ -87,19 +84,24 @@ public class SecurityController {
     }
 
 
+    @Log
     @RequestMapping("/user/id{id}")
-    public String user( @PathVariable int id, ModelMap map) {
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user!=null&&user.getId()==id){
-            map.put("user", user);
-        }else{
-        map.put("user", userServ.getOne(id));}
+    @PreAuthorize("isAuthenticated()")
+    public String user(@PathVariable int id, ModelMap map) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user != null && user.getId() == id) {
+            return profile(map);
+        } else {
+            map.put("user", userServ.getOne(id));
+        }
         return "profile";
     }
+
+    @Log
     @RequestMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public String profile(HttpServletRequest request, ModelMap map) {
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String profile(ModelMap map) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         map.put("user", user);
         return "profile";
     }

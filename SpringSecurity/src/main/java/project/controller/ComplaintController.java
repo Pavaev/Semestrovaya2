@@ -2,8 +2,11 @@ package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -12,9 +15,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.aspectJ.Log;
 import project.model.Complaint;
 import project.model.ComplaintValidator;
+import project.model.User;
 import project.service.IComplaintService;
+
+import javax.validation.Valid;
 
 /**
  * Created by Daniel Shchepetov on 14.04.2016.
@@ -39,13 +46,16 @@ public class ComplaintController {
         return "complaint";
     }
 
+    @Log
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/new_complaint", method = RequestMethod.GET)
     public String complaint(ModelMap map) {
         map.put("complaint", new Complaint());
         return "add";
     }
 
-
+    @Log
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/new_complaint", method = RequestMethod.POST)
     public String springHandler(
             RedirectAttributes redirectAttributes,
@@ -56,6 +66,8 @@ public class ComplaintController {
         if (result.hasErrors()) {
             return "add";
         } else {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            complaint.setUser(user);
             complaintService.add(complaint);
             redirectAttributes.addFlashAttribute("message", "<span style=\"color:green\">Complaint \"" + complaint.getHeader() + "\" has been added successfully</span>");
             redirectAttributes.addFlashAttribute("messageType", "success");
@@ -64,9 +76,16 @@ public class ComplaintController {
 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping("/complaint/{id}/delete")
     public String delete(@PathVariable int id, RedirectAttributes redirectAttributes, ModelMap map) {
         try {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            if (user.getId() != complaintService.getOne(id).getUser().getId()) {
+                return "redirect:" + MvcUriComponentsBuilder.fromMappingName("CC#show").build();
+            }
+
             complaintService.delete(id);
             redirectAttributes.addFlashAttribute("message", "Complaint has been deleted successfully");
             redirectAttributes.addFlashAttribute("messageType", "success");
@@ -116,5 +135,40 @@ public class ComplaintController {
         return "list";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/complaint/{id}/edit", method = RequestMethod.GET)
+    public String edit(@PathVariable int id, ModelMap map) {
 
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (user.getId() != complaintService.getOne(id).getUser().getId()) {
+            return "redirect:" + MvcUriComponentsBuilder.fromMappingName("CC#show").build();
+        }
+        map.put("complaint", complaintService.getOne(id));
+        return "edit";
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/complaint/{id}/edit", method = RequestMethod.POST)
+    public String editP(
+            RedirectAttributes redirectAttributes,
+            @Validated Complaint comp,
+            BindingResult result,
+            ModelMap map, @PathVariable int id) {
+        if (result.hasErrors()) {
+            return "redirect:" + MvcUriComponentsBuilder.fromPath("/complaint/{id}/edit").build();
+        } else {
+            ;
+            complaintService.delete(id);
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            comp.setUser(user);
+            complaintService.add(comp);
+            id++;
+            redirectAttributes.addFlashAttribute("message", "Success!");
+            redirectAttributes.addFlashAttribute("messageType", "success");
+            return "redirect:" + MvcUriComponentsBuilder.fromPath("/").build();
+        }
+
+    }
 }

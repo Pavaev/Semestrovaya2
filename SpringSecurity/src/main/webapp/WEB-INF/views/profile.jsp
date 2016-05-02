@@ -50,19 +50,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="isAnonymous()">
                     <li><a href="${s:mvcUrl('SC#login').build()}">Войти</a></li>
-                </sec:authorize>
-
-                <sec:authorize access="isAuthenticated()">
-                    <li><a href="<c:url value="/j_spring_security_logout"/>">Мой профиль</a></li>
-                </sec:authorize>
-
-
-                <sec:authorize access="isAnonymous()">
                     <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
                 </sec:authorize>
-
-
                 <sec:authorize access="isAuthenticated()">
+                    <li><a href="${s:mvcUrl('SC#profile').build()}">Мой профиль</a></li>
                     <li><a href="<c:url value="/logout"/>">Выход</a></li>
                 </sec:authorize>
 
@@ -85,7 +76,9 @@
                 <c:when test="${not empty user}">
 
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-
+                        <c:if test="${not empty message}">
+                            <h1 class="alert alert-success">${message}</h1>
+                        </c:if>
 
                         <div class="panel panel-info">
                             <div class="panel-heading">
@@ -128,20 +121,29 @@
                                     </div>
                                 </div>
                             </div>
+                            <c:set var="id"><sec:authentication property="principal.id"/></c:set>
+
+
                             <div class="panel-footer">
-                                <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button"
-                                   class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+
+                                <c:if test="${id==user.id}">
+
+
                         <span class="pull-right">
-                            <a href="${s:mvcUrl('UC#edit').build()}" data-original-title="Edit this user"
-                               data-toggle="tooltip" type="button"
-                               class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a href="${s:mvcUrl('UC#delete').build()}" data-original-title="Remove this user"
+
+
+
+                            <a href="<c:url value="/user/id${id}/delete"/>" data-original-title="Remove this user"
                                data-toggle="tooltip" type="button"
                                class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                        </span>
+
+                                </span>
+                                </c:if>
+
                             </div>
 
                         </div>
+
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -150,11 +152,11 @@
             </c:choose>
         </div>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../assets/js/offcanvas.js"></script>
-    <script src="../assets/js/holder.js"></script>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/js/offcanvas.js"></script>
+<script src="../assets/js/holder.js"></script>
 
 </body>
 </html>

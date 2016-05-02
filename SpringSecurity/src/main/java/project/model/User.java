@@ -1,6 +1,7 @@
 package project.model;
 
 
+import org.hibernate.annotations.Fetch;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,15 +26,15 @@ public class User implements CredentialsContainer, UserDetails {
     @Column(nullable = false)
     @Length(max = 100)
     @NotBlank(message = "First Name cannot be empty")
-    private String firstName = "Иван";
+    private String firstName = "Ivan";
 
     @Column(nullable = false)
     @Length(max = 100)
     @NotBlank(message = "Last Name cannot be empty")
-    private String lastName = "Иванов";
+    private String lastName = "Ivanov";
 
     @Column
-    private String midName = "Иванович";
+    private String midName = "Ivanovich";
 
     @Email(message = "This email is not valid")
     @NotBlank(message = "Email cannot be empty")
@@ -48,10 +49,14 @@ public class User implements CredentialsContainer, UserDetails {
     @Column
     private String phone = "88005553535";
 
+
+    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL ,targetEntity = Complaint.class)
+    @JoinColumn(name="user_id", referencedColumnName="id")
+    private List<Complaint> comps;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Town town;
-
 
     @Column
     private String sex = "Не указано";
@@ -199,7 +204,7 @@ public class User implements CredentialsContainer, UserDetails {
     }
 
     public int getId() {
-        return id;
+            return id;
     }
 
     public void setId(int id) {
@@ -223,5 +228,13 @@ public class User implements CredentialsContainer, UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<Complaint> getComps() {
+        return comps;
+    }
+
+    public void setComps(List<Complaint> comps) {
+        this.comps = comps;
     }
 }

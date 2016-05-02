@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import project.aspectJ.Log;
 import project.model.User;
 import project.repo.UserAuthorityRepository;
 import project.repo.UserRepository;
@@ -19,25 +20,35 @@ import project.repo.UserRepository;
 public class UserService implements IUserService, UserDetailsService {
 
     @Autowired
-   private UserRepository userRepo;
+    private UserRepository userRepo;
 
     @Autowired
-   private  UserAuthorityRepository userAuthorityRepo;
+    private UserAuthorityRepository userAuthorityRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
 
     @Override
-        public void register(User user) {
-            if(userRepo.findByUsername(user.getUsername()) != null){
-                throw new DuplicateKeyException("Такой email уже зарегистрирован");
-            }
-            user.addAuthority(userAuthorityRepo.findByAuthority("ROLE_USER"));
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepo.save(user);
+    public void register(User user) {
+        if (userRepo.findByUsername(user.getUsername()) != null) {
+            throw new DuplicateKeyException("Такой email уже зарегистрирован");
+        }
+        user.addAuthority(userAuthorityRepo.findByAuthority("ROLE_USER"));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepo.save(user);
     }
-    public User getOne(int id){ return userRepo.findOne(id);}
+
+    @Override
+    public void remove(int id) {
+        ;
+        userRepo.delete(id);
+    }
+
+
+    public User getOne(int id) {
+        return userRepo.findOne(id);
+    }
 
 
     @Override

@@ -25,7 +25,6 @@ public class Town implements Serializable {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Town> towns = new ArrayList<Town>();
 
-
     @NotNull
     @Size(min = 1, max = 255)
     @Column(unique = true, nullable = false)

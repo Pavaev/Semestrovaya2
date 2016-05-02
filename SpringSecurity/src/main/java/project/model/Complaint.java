@@ -22,7 +22,7 @@ public class Complaint {
 
     @Length(max = 100)
     @Column(nullable = false)
-    private String company = "Мяу Meow";
+    private String company = "Meow";
 
 
     @Length(max = 255)
@@ -38,8 +38,9 @@ public class Complaint {
     private String coords;
 
 
-    @Column
-    private int user_id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     public Complaint() {
@@ -117,19 +118,19 @@ public class Complaint {
     }
 
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
     public String getCoords() {
         return coords;
     }
 
     public void setCoords(String coords) {
         this.coords = coords;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

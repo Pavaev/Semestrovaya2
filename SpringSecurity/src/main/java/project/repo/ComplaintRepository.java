@@ -20,6 +20,9 @@ import project.model.Complaint;
 
     @Query("SELECT c FROM Complaint c WHERE c.id BETWEEN :fr AND :to AND c.company LIKE CONCAT('%',:comp,'%')")
     Page<Complaint> findAllWithParams(Pageable pageable, @Param("fr") int from, @Param("to")int to, @Param("comp") String comp);
+
+
 }
+
 
 

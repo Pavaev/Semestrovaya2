@@ -15,6 +15,8 @@
       <column name="post" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FKh8dg5n7ibjyack6pn6e71djj6" columns="user_id" ref-table="user" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKh8dg5n7ibjyack6pn6e71djj6" unique="false" columns="user_id"/>
     </table>
     <table name="town" schema="" catalog="board" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -45,7 +47,9 @@
       <column name="town_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FKfdlpstjhg0ny1w47lay1bphr0" columns="town_id" ref-table="town" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKh8dg5n7ibjyack6pn6e71djj6" table="complaint" schema="" catalog="board" columns="user_id"/>
       <exported-key name="FKht82afolyn6n3t5wvny5ce6mq" table="user_user_role" schema="" catalog="board" columns="user"/>
+      <exported-key name="FKnq2i5c8gn59j80wm4bguot5c1" table="userlog" schema="" catalog="board" columns="user_id"/>
       <index name="FKfdlpstjhg0ny1w47lay1bphr0" unique="false" columns="town_id"/>
     </table>
     <table name="user_role" schema="" catalog="board" type="TABLE">
@@ -62,6 +66,16 @@
       <foreign-key name="FKht82afolyn6n3t5wvny5ce6mq" columns="user" ref-table="user" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FKm73faupeogv09wl4udlqplxpx" columns="user_role" ref-table="user_role" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="FKm73faupeogv09wl4udlqplxpx" unique="false" columns="user_role"/>
+    </table>
+    <table name="userlog" schema="" catalog="board" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="date" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="returned" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FKnq2i5c8gn59j80wm4bguot5c1" columns="user_id" ref-table="user" ref-schema="" ref-catalog="board" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKnq2i5c8gn59j80wm4bguot5c1" unique="false" columns="user_id"/>
     </table>
   </data-source>
 </component>

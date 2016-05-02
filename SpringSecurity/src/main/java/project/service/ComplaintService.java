@@ -51,5 +51,4 @@ public class ComplaintService implements IComplaintService {
         return complaintRepo.findAll(request);
     }
 
-
 }

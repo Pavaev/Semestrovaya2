@@ -117,7 +117,7 @@
                     <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
-                    <li><a href="<c:url value="/user/id"/>">Мой профиль</a></li>
+                    <li><a href="${s:mvcUrl('SC#profile').build()}">Мой профиль</a></li>
                     <li><a href="<c:url value="/logout"/>">Выход</a></li>
                 </sec:authorize>
 

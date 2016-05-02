@@ -48,22 +48,12 @@
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="isAnonymous()">
                     <li><a href="${s:mvcUrl('SC#login').build()}">Войти</a></li>
-                </sec:authorize>
-
-                <sec:authorize access="isAuthenticated()">
-                    <li><a href="<c:url value="/j_spring_security_logout"/>">Мой профиль</a></li>
-                </sec:authorize>
-
-
-                <sec:authorize access="isAnonymous()">
                     <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
                 </sec:authorize>
-
-
                 <sec:authorize access="isAuthenticated()">
+                    <li><a href="${s:mvcUrl('SC#profile').build()}">Мой профиль</a></li>
                     <li><a href="<c:url value="/logout"/>">Выход</a></li>
                 </sec:authorize>
-
             </ul>
         </div>
         <!-- /.nav-collapse -->
@@ -165,10 +155,13 @@
                                 <td>${complaint.company}</td>
                                 <td>${complaint.header}</td>
                                 <td>${complaint.post}</td>
-                                <td>${complaint.user_id}</td>
+                                <td>${complaint.user.id}</td>
                                 <td class="text-center"><a class='btn btn-info btn-xs'
                                                            href="<c:url value="/complaint/${complaint.id}"/>"><span
                                         class="glyphicon glyphicon-edit"></span> Подробнее</a>
+                                <td class="text-center"><a class='btn btn-info btn-xs'
+                                                           href="<c:url value="/user/id${complaint.user.id}"/>"><span
+                                        class="glyphicon glyphicon-edit"></span> К странице пользователя</a>
                             </tr>
                         </c:forEach>
                     </table>

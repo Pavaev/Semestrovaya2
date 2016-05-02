@@ -34,12 +34,12 @@
         ymaps.ready(init);
 
         function init() {
-                    myMap = new ymaps.Map('map', {
-                        center: [${complaint.coords}],
-                        zoom: 13
-                    }, {
-                        searchControlProvider: 'yandex#search'
-                    });
+            myMap = new ymaps.Map('map', {
+                center: [${complaint.coords}],
+                zoom: 13
+            }, {
+                searchControlProvider: 'yandex#search'
+            });
 
 
             myGeoObject = new ymaps.GeoObject({
@@ -77,22 +77,12 @@
             <ul class="nav navbar-nav navbar-right">
                 <sec:authorize access="isAnonymous()">
                     <li><a href="${s:mvcUrl('SC#login').build()}">Войти</a></li>
-                </sec:authorize>
-
-                <sec:authorize access="isAuthenticated()">
-                    <li><a href="<c:url value="/j_spring_security_logout"/>">Мой профиль</a></li>
-                </sec:authorize>
-
-
-                <sec:authorize access="isAnonymous()">
                     <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
                 </sec:authorize>
-
-
                 <sec:authorize access="isAuthenticated()">
+                    <li><a href="${s:mvcUrl('SC#profile').build()}">Мой профиль</a></li>
                     <li><a href="<c:url value="/logout"/>">Выход</a></li>
                 </sec:authorize>
-
             </ul>
 
         </div>
@@ -120,80 +110,25 @@
                 </div>
                 <h4>${complaint.header}
                 </h4>
-                <a href="${s:mvcUrl("CC#delete").arg(0, complaint.id).build()}">
-                    <button class="pull-right btn-danger">Remove</button>
-                </a>
-
+                <c:set var="id"><sec:authentication property="principal.id"/></c:set>
+                <c:if test="${id==complaint.user.id}">
+                    <a href="${s:mvcUrl("CC#delete").arg(0, complaint.id).build()}">
+                        <button class="pull-right btn-danger">Удалить</button>
+                    </a>
+                    <a href="${s:mvcUrl("CC#edit").arg(0, complaint.id).build()}">
+                        <button class="pull-right btn-success">Изменить</button>
+                    </a>
+                </c:if>
                 <p>${complaint.post}</p>
                 <b>${complaint.company}</b>
+                <br>
+                By:
+                <u>${complaint.user.username}</u>
+                <br>
+                <a class='btn btn-info btn-xs'
+                   href="<c:url value="/user/id${complaint.user.id}"/>"><span
+                        class="glyphicon glyphicon-edit"></span> К странице пользователя</a>
 
-
-                <div class="ratings">
-
-                    <p class="pull-right">3 reviews</p>
-
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        4.0 stars
-                    </p>
-                </div>
-            </div>
-
-            <div class="well">
-
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">10 days ago</span>
-
-                        <p>This product was great in terms of quality. I would definitely buy another!</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">12 days ago</span>
-
-                        <p>I've alredy ordered another one!</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">15 days ago</span>
-
-                        <p>I've seen some better than this, but not at this price. I definitely recommend this
-                            item.</p>
-                    </div>
-                </div>
 
             </div>
 
@@ -207,16 +142,7 @@
     </c:otherwise>
     </c:choose>
 
-    <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-        <div class="list-group">
-            <a href="#" class="list-group-item active">Магазины</a>
-            <a href="#" class="list-group-item">Кафе и рестораны</a>
-            <a href="#" class="list-group-item">Строительные фирмы</a>
-            <a href="#" class="list-group-item">Услуги</a>
-            <a href="#" class="list-group-item">Прочее</a>
-        </div>
-    </div>
-    <!--/span-->
+
 </div>
 <!--/row-->
 
@@ -229,7 +155,7 @@
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
+<!-- Placed at the end of the document so the pages load faste  r -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../assets/js/offcanvas.js"></script>

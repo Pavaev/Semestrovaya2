@@ -70,7 +70,7 @@
   <form:form class="form-signin" commandName="login">
     <h2 class="form-signin-heading">Please sign in</h2>
     <label for="inputEmail" class="sr-only">Email address</label>
-    <form:input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="true" autofocus="true" path="username"/>
+    <form:input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="true" autofocus="true" path="username"/>
     <label for="inputPassword" class="sr-only">Password</label>
     <form:input type="password" id="inputPassword" class="form-control" placeholder="Password" required="true" path="password"/>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

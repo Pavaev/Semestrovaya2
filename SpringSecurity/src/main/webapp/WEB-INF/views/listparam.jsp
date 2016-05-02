@@ -48,22 +48,12 @@
       <ul class="nav navbar-nav navbar-right">
         <sec:authorize access="isAnonymous()">
           <li><a href="${s:mvcUrl('SC#login').build()}">Войти</a></li>
-        </sec:authorize>
-
-        <sec:authorize access="isAuthenticated()">
-          <li><a href="<c:url value="/j_spring_security_logout"/>">Мой профиль</a></li>
-        </sec:authorize>
-
-
-        <sec:authorize access="isAnonymous()">
           <li><a href="${s:mvcUrl('SC#register').build()}">Регистрация</a></li>
         </sec:authorize>
-
-
         <sec:authorize access="isAuthenticated()">
+          <li><a href="${s:mvcUrl('SC#profile').build()}">Мой профиль</a></li>
           <li><a href="<c:url value="/logout"/>">Выход</a></li>
         </sec:authorize>
-
       </ul>
     </div>
     <!-- /.nav-collapse -->

@@ -74,8 +74,11 @@
 
         <div class="col-xs-12 col-sm-9">
             <p class="pull-right visible-xs">
+
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
             </p>
+
+
             <div class="jumbotron">
                 <h1>Добро пожаловать на доску позора</h1>
 
@@ -84,21 +87,13 @@
             </div>
             <a href="${s:mvcUrl('CC#complaint').build()}" role="button" class="btn btn-success btn-lg btn-block">Написать
                 отзыв</a>
+            <a href="<c:url value="/list/1"/>" role="button" class="btn btn-default btn-lg btn-block">Показать все</a>
 
 
         </div>
         <!--/span-->
 
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Магазины</a>
-                <a href="#" class="list-group-item">Кафе и рестораны</a>
-                <a href="#" class="list-group-item">Строительные фирмы</a>
-                <a href="#" class="list-group-item">Услуги</a>
-                <a href="#" class="list-group-item">Прочее</a>
-            </div>
-        </div>
-        <!--/span-->
+
     </div>
     <!--/row-->
 
