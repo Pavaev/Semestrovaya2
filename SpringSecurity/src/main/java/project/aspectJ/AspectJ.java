@@ -26,7 +26,9 @@ public class AspectJ {
 
     @Around("@annotation(Log)")
     public void logAnnotatedMethods(ProceedingJoinPoint pjp) throws Throwable {
+
         log = new UserLog();
+
         //get date-time
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
@@ -38,22 +40,23 @@ public class AspectJ {
         //get current user
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        log.setDate(dt);
-        log.setName(name);
-        log.setUser(user);
-        pjp.proceed();
-    }
+        //proceed and get returned value
+        String returnValue = (String) pjp.proceed();
 
-    @AfterReturning(pointcut = "@annotation(Log)", returning = "returnValue")
-    public void getReturned(JoinPoint joinPoint, String returnValue) {
         if (returnValue == null || "".equals(returnValue)) {
             returnValue = "void";
         }
+
         log.setReturned(returnValue);
+        log.setDate(dt);
+        log.setName(name);
+        log.setUser(user);
 
         System.out.println(log.getDate() + " " + log.getName() + " " + log.getReturned() + " " + log.getUser().getUsername());
 
         aspectServ.add(log);
+
     }
+
 
 }
